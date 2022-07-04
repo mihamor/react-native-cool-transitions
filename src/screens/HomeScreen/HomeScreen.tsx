@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getAlbums } from '~actions/albums';
 import { albumsSelector } from '~selectors';
+import { WhiteCard } from '~styles/containers';
 import { HomeScreenProps } from '~types';
+import { Card, Container, Header } from './styles';
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [initialRender, setInitialRender] = useState(true);
@@ -22,14 +24,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   console.log(albums, loading, error);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {showSpinner && <ActivityIndicator />}
-      {!showSpinner && (
-        <FlatList 
-          data={albums}
-          renderItem={({ item }) => <Text>{item.title}</Text>}
-        />
-      )}
-    </View>
+    <Container>
+      <Header>
+
+      </Header>
+      <Card>
+
+      </Card>
+    </Container>
   );
 };
