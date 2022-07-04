@@ -1,12 +1,22 @@
-import { createStore, combineReducers } from 'redux';
-import albums from '~reducers/albums';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import albums, { AlbumsState } from '~reducers/albums';
+import { rootSaga } from '~sagas/root';
 
-const rootReducer = combineReducers(
-  { count: albums }
+export interface State { 
+  albums: AlbumsState,
+};
+
+const sagaMiddleware = createSagaMiddleware();
+
+const rootReducer = combineReducers<State>(
+  { albums }
 );
 
 const configureStore = () => {
-  return createStore(rootReducer);
+  const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  sagaMiddleware.run(rootSaga);
+  return store;
 };
 
 export default configureStore;
